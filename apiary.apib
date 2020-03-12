@@ -1,0 +1,659 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+
+# fe-api
+
+This API demonstrates how to describe a GraphQL using API Blueprint.
+This API Bluperint describes example API as found at <http://graphql.org/docs/getting-started/>.
+
+## List of products [/graphql?products]
+
+### post [POST]
+
+Runs a GraphQL query.
+
+- Request (application/json)
+
+        {
+            "query":  "products (first: 3) {edges {node {uuid,name,shortDescription,stockQuantity,price {priceWithVat,priceWithoutVat,vatAmount},images {type,position,size,url,width,height},flags {name,rgbColor,},link}}}"
+        }
+
+- Response 200 (application/json; charset=utf-8)
+
+        {
+          "data": {
+            "products": {
+              "edges": [
+                {
+                  "node": {
+                    "uuid": "76707d75-1633-403c-bcfe-426d210de1a1",
+                    "name": "22\" Sencor SLE 22F46DM4 HELLO KITTY",
+                    "shortDescription": "Television LED, 55 cm diagonal, 1920x1080 Full HD, DVB-T MPEG4 tuner with USB recording and playback",
+                    "stockQuantity": 300,
+                    "price": {
+                      "priceWithVat": "349",
+                      "priceWithoutVat": "291.74",
+                      "vatAmount": "0"
+                    },
+                    "images": [
+                      {
+                        "type": null,
+                        "position": null,
+                        "size": "default",
+                        "url": "https://demo.shopsys.com/content/images/product/list/1.jpg",
+                        "width": 410,
+                        "height": null
+                      },
+                      {
+                        "type": null,
+                        "position": null,
+                        "size": "galleryThumbnail",
+                        "url": "https://demo.shopsys.com/content/images/product/galleryThumbnail/1.jpg",
+                        "width": null,
+                        "height": 35
+                      },
+                      {
+                        "type": null,
+                        "position": null,
+                        "size": "list",
+                        "url": "https://demo.shopsys.com/content/images/product/list/1.jpg",
+                        "width": 150,
+                        "height": null
+                      }
+                    ],
+                    "flags": [
+                      {
+                        "name": "TOP",
+                        "rgbColor": "#d6fffa"
+                      },
+                      {
+                        "name": "Action",
+                        "rgbColor": "#f9ffd6"
+                      }
+                    ],
+                    "link": "https://demo.shopsys.com//22-sencor-sle-22f46dm4-hello-kitty/"
+                  }
+                },
+                {
+                  "node": {
+                    "uuid": "53d57486-e329-4723-99b1-58c214c56f2d",
+                    "name": "27” Hyundai T27D590EY",
+                    "shortDescription": "The TV monitor PLS LED, 1000:1, 5ms, 1920x1080, tuner DVB-T/C, PiP +, 2x HDMI, MHL, USB, CI, Scart, 2x 5W speakers, remote control",
+                    "stockQuantity": 100,
+                    "price": {
+                      "priceWithVat": "750",
+                      "priceWithoutVat": "619.17",
+                      "vatAmount": "0"
+                    },
+                    "images": [
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "default",
+                            "url": "https://demo.shopsys.com/content/images/product/list/2.jpg",
+                            "width": 410,
+                            "height": null
+                        }
+                    ],
+                    "flags": [],
+                    "link": "https://demo.shopsys.com/27-hyundai-t27d590ey-2/"
+                  }
+                },
+                {
+                  "node": {
+                    "uuid": "4e091a58-62eb-4cef-b55a-79cdc02f69f5",
+                    "name": "27” Hyundai T27D590EZ",
+                    "shortDescription": "The TV monitor PLS LED, 1000:1, 5ms, 1920x1080, tuner DVB-T/C, PiP +, 2x HDMI, MHL, USB, CI, Scart, 2x 5W speakers, remote control",
+                    "stockQuantity": 100,
+                    "price": {
+                      "priceWithVat": "74",
+                      "priceWithoutVat": "39.17",
+                      "vatAmount": "0"
+                    },
+                    "images": [
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "default",
+                            "url": "https://demo.shopsys.com/content/images/product/list/3.jpg",
+                            "width": 410,
+                            "height": null
+                        }
+                    ],
+                    "flags": [],
+                    "link": "https://demo.shopsys.com/27-hyundai-t27d590ez/"
+                  }
+                }
+              ]
+            }
+          }
+        }
+
+## Product detail [/graphql?product_detail]
+
+### post [POST]
+
+Runs a GraphQL query.
+
+- Request (application/json)
+
+        {
+            "query":  "product (uuid: "b8c665bd-0461-42d1-b57b-c0bf60d2724f") {uuid,name,shortDescription,stockQuantity,price {priceWithVat,priceWithoutVat,vatAmount},images {type,position,size,url,width,height},flags {name,rgbColor,},link}"
+        }
+
+- Response 200 (application/json; charset=utf-8)
+
+        {
+           "data":{
+              "product":{
+                 "uuid":"76707d75-1633-403c-bcfe-426d210de1a1",
+                 "name":"22\" Sencor SLE 22F46DM4 HELLO KITTY",
+                 "shortDescription":"Television LED, 55 cm diagonal, 1920x1080 Full HD, DVB-T MPEG4 tuner with USB recording and playback",
+                 "stockQuantity":300,
+                 "price":{
+                    "priceWithVat":"3499",
+                    "priceWithoutVat":"2891.74",
+                    "vatAmount":"607.26"
+                 },
+                 "images":[
+                    {
+                       "type":null,
+                       "position":null,
+                       "size":"default",
+                       "url":"http://127.0.0.1:8000/content/images/product/default/1.jpg",
+                       "width":410,
+                       "height":null
+                    },
+                    {
+                       "type":null,
+                       "position":null,
+                       "size":"galleryThumbnail",
+                       "url":"http://127.0.0.1:8000/content/images/product/galleryThumbnail/1.jpg",
+                       "width":null,
+                       "height":35
+                    }
+                 ],
+                 "flags":[
+                    {
+                       "name":"TOP",
+                       "rgbColor":"#d6fffa"
+                    },
+                    {
+                       "name":"Action",
+                       "rgbColor":"#f9ffd6"
+                    }
+                 ],
+                 "link":"http://127.0.0.1:8000/22-sencor-sle-22f46dm4-hello-kitty/"
+              }
+           }
+        }
+        
+## List of categories [/graphql?categories]
+
+### post [POST]
+
+Runs a GraphQL query.
+
+- Request (application/json)
+
+        {
+            "query":  "query {categories {uuid,name,children {name},parent {name},images {type,position,size,url,width,height},products (first: 1) {edges {node {name}}}}}"
+        }
+
+- Response 200 (application/json; charset=utf-8)
+
+        {
+          "data": {
+            "categories": [
+              {
+                "uuid": "5e607ede-357d-4852-b7de-c81491866506",
+                "name": "Electronics",
+                "children": [
+                  {
+                    "name": "TV, audio"
+                  },
+                  {
+                    "name": "Cameras & Photo"
+                  }
+                ],
+                "parent": {
+                  "name": null
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/category/default/68.jpg",
+                    "width": 30,
+                    "height": 30
+                  }
+                ],
+                "products": {
+                  "edges": [
+                    {
+                      "node": {
+                        "name": "22\" Sencor SLE 22F46DM4 HELLO KITTY"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "uuid": "d5e4fe8e-08db-4590-bdba-1b388d36eb81",
+                "name": "Books",
+                "children": [],
+                "parent": {
+                  "name": null
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/category/default/75.jpg",
+                    "width": 30,
+                    "height": 30
+                  }
+                ],
+                "products": {
+                  "edges": [
+                    {
+                      "node": {
+                        "name": "100 Czech crowns ticket"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "uuid": "6bdc16b8-5128-4743-b263-d6edb1e6a61e",
+                "name": "Toys",
+                "children": [],
+                "parent": {
+                  "name": null
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/category/default/76.jpg",
+                    "width": 30,
+                    "height": 30
+                  }
+                ],
+                "products": {
+                  "edges": []
+                }
+              },
+              {
+                "uuid": "97af6458-90ac-48f3-be55-63e549cdda47",
+                "name": "Garden tools",
+                "children": [],
+                "parent": {
+                  "name": null
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/category/default/77.jpg",
+                    "width": 30,
+                    "height": 30
+                  }
+                ],
+                "products": {
+                  "edges": [
+                    {
+                      "node": {
+                        "name": "Cleaner 3in1 stainless steel appliances (4039286078461)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "uuid": "204a09c1-a249-4516-9bf5-2b765d4bbe72",
+                "name": "Food",
+                "children": [],
+                "parent": {
+                  "name": null
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/category/default/78.jpg",
+                    "width": 30,
+                    "height": 30
+                  }
+                ],
+                "products": {
+                  "edges": [
+                    {
+                      "node": {
+                        "name": "Aquila Aquagym non-carbonated spring water"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+          
+## Category detail [/graphql?category_detail]
+
+### post [POST]
+
+Runs a GraphQL query.
+
+- Request (application/json)
+
+        {
+            "query":  "query {category (uuid: "5e607ede-357d-4852-b7de-c81491866506") {uuid,name,children {name},parent {name},images {type,position,size,url,width,height},products (first: 1) {edges {node {name}}}}}"
+        }
+
+- Response 200 (application/json; charset=utf-8)
+
+        {
+          "data": {
+            "categoriy": {
+                "uuid": "5e607ede-357d-4852-b7de-c81491866506",
+                "name": "Electronics",
+                "children": [
+                  {
+                    "name": "TV, audio"
+                  },
+                  {
+                    "name": "Cameras & Photo"
+                  }
+                ],
+                "parent": {
+                  "name": null
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/category/default/68.jpg",
+                    "width": 30,
+                    "height": 30
+                  }
+                ],
+                "products": {
+                  "edges": [
+                    {
+                      "node": {
+                        "name": "22\" Sencor SLE 22F46DM4 HELLO KITTY"
+                      }
+                    }
+                  ]
+                }
+            }
+        }
+        
+## List of transport methods [/graphql?transports]
+
+### post [POST]
+
+- Request (application/json)
+
+        {
+            "query": "query {transports {uuid,name,description,instruction,position,price {priceWithVat,priceWithoutVat,vatAmount},images {type,position,size,url,width,height},payments {uuid,name}}}" 
+        }
+        
+- Response 200 (application/json; charset=utf-8)
+        
+        {
+          "data": {
+            "transports": [
+              {
+                "uuid": "f3e8ee28-4156-4941-8070-344821987f22",
+                "name": "Czech post",
+                "description": null,
+                "instruction": null,
+                "position": 0,
+                "price": {
+                  "priceWithVat": "121",
+                  "priceWithoutVat": "100.00",
+                  "vatAmount": "21.00"
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/transport/default/56.jpg",
+                    "width": null,
+                    "height": 20
+                  },
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "original",
+                    "url": "http://127.0.0.1:8000/content/images/transport/original/56.jpg",
+                    "width": null,
+                    "height": null
+                  }
+                ],
+                "payments": [
+                  {
+                    "uuid": "6068b455-45bb-4f4b-b9b8-eb62db954e76",
+                    "name": "Cash on delivery"
+                  }
+                ]
+              },
+              {
+                "uuid": "4c5f2102-6aa5-4a09-bb8f-275fba3a2866",
+                "name": "PPL",
+                "description": null,
+                "instruction": null,
+                "position": 1,
+                "price": {
+                  "priceWithVat": "242",
+                  "priceWithoutVat": "200.00",
+                  "vatAmount": "42.00"
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/transport/default/57.jpg",
+                    "width": null,
+                    "height": 20
+                  },
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "original",
+                    "url": "http://127.0.0.1:8000/content/images/transport/original/57.jpg",
+                    "width": null,
+                    "height": null
+                  }
+                ],
+                "payments": [
+                  {
+                    "uuid": "e09610bc-a01b-42b4-bb99-ea0e92222fae",
+                    "name": "Credit card"
+                  }
+                ]
+              },
+              {
+                "uuid": "554f8e88-d9c9-4377-a505-eaddb66a1cb4",
+                "name": "Personal collection",
+                "description": "You will be welcomed by friendly staff!",
+                "instruction": null,
+                "position": 2,
+                "price": {
+                  "priceWithVat": "0",
+                  "priceWithoutVat": "0",
+                  "vatAmount": "0"
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/transport/default/58.jpg",
+                    "width": null,
+                    "height": 20
+                  },
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "original",
+                    "url": "http://127.0.0.1:8000/content/images/transport/original/58.jpg",
+                    "width": null,
+                    "height": null
+                  }
+                ],
+                "payments": [
+                  {
+                    "uuid": "e09610bc-a01b-42b4-bb99-ea0e92222fae",
+                    "name": "Credit card"
+                  },
+                  {
+                    "uuid": "3ca0281b-3690-4a8e-b2aa-4292f5019673",
+                    "name": "Cash"
+                  }
+                ]
+              }
+            ]
+          }
+
+## List of payment methods [/graphql?payments]
+
+### post [POST]
+
+Run a GraphQl query.
+
+- Request (application/json)
+
+        {
+            "query": "query {payments {uuid,name,description,instruction,position,price {priceWithVat,priceWithoutVat,vatAmount},images {type,position,size,url,width,height},transports {uuid,name}}}" 
+        }
+        
+- Response 200 (application/json; charset=utf-8)
+        
+        {
+          "data": {
+            "payments": [
+              {
+                "uuid": "e09610bc-a01b-42b4-bb99-ea0e92222fae",
+                "name": "Credit card",
+                "description": "Quick, cheap and reliable!",
+                "instruction": null,
+                "position": 0,
+                "price": {
+                  "priceWithVat": "100",
+                  "priceWithoutVat": "100.00",
+                  "vatAmount": "0.00"
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/payment/default/53.jpg",
+                    "width": null,
+                    "height": 20
+                  },
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "original",
+                    "url": "http://127.0.0.1:8000/content/images/payment/original/53.jpg",
+                    "width": null,
+                    "height": null
+                  }
+                ],
+                "transports": [
+                  {
+                    "uuid": "4c5f2102-6aa5-4a09-bb8f-275fba3a2866",
+                    "name": "PPL"
+                  },
+                  {
+                    "uuid": "554f8e88-d9c9-4377-a505-eaddb66a1cb4",
+                    "name": "Personal collection"
+                  }
+                ]
+              },
+              {
+                "uuid": "6068b455-45bb-4f4b-b9b8-eb62db954e76",
+                "name": "Cash on delivery",
+                "description": null,
+                "instruction": null,
+                "position": 1,
+                "price": {
+                  "priceWithVat": "50",
+                  "priceWithoutVat": "50.00",
+                  "vatAmount": "0.00"
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/payment/default/55.jpg",
+                    "width": null,
+                    "height": 20
+                  },
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "original",
+                    "url": "http://127.0.0.1:8000/content/images/payment/original/55.jpg",
+                    "width": null,
+                    "height": null
+                  }
+                ],
+                "transports": [
+                  {
+                    "uuid": "f3e8ee28-4156-4941-8070-344821987f22",
+                    "name": "Czech post"
+                  }
+                ]
+              },
+              {
+                "uuid": "3ca0281b-3690-4a8e-b2aa-4292f5019673",
+                "name": "Cash",
+                "description": null,
+                "instruction": null,
+                "position": 2,
+                "price": {
+                  "priceWithVat": "0",
+                  "priceWithoutVat": "0",
+                  "vatAmount": "0"
+                },
+                "images": [
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "default",
+                    "url": "http://127.0.0.1:8000/content/images/payment/default/54.jpg",
+                    "width": null,
+                    "height": 20
+                  },
+                  {
+                    "type": null,
+                    "position": null,
+                    "size": "original",
+                    "url": "http://127.0.0.1:8000/content/images/payment/original/54.jpg",
+                    "width": null,
+                    "height": null
+                  }
+                ],
+                "transports": [
+                  {
+                    "uuid": "554f8e88-d9c9-4377-a505-eaddb66a1cb4",
+                    "name": "Personal collection"
+                  }
+                ]
+              }
+            ]
+          }
