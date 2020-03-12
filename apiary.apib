@@ -15,7 +15,34 @@ Runs a GraphQL query.
 - Request (application/json)
 
         {
-            "query":  "products (first: 3) {edges {node {uuid,name,shortDescription,stockQuantity,price {priceWithVat,priceWithoutVat,vatAmount},images {type,position,size,url,width,height},flags {name,rgbColor,},link}}}"
+            "query":  "products (first: 3) {
+                edges {
+                    node {
+                        uuid,
+                        name,
+                        shortDescription,
+                        stockQuantity,
+                        price {
+                            priceWithVat,
+                            priceWithoutVat,
+                            vatAmount
+                        },
+                        images {
+                            type,
+                            position,
+                            size,
+                            url,
+                            width,
+                            height
+                        },
+                        flags {
+                            name,
+                            rgbColor
+                        },
+                        link
+                    }
+                }
+            }"
         }
 
 - Response 200 (application/json; charset=utf-8)
@@ -138,7 +165,30 @@ Runs a GraphQL query.
 - Request (application/json)
 
         {
-            "query":  "product (uuid: "b8c665bd-0461-42d1-b57b-c0bf60d2724f") {uuid,name,shortDescription,stockQuantity,price {priceWithVat,priceWithoutVat,vatAmount},images {type,position,size,url,width,height},flags {name,rgbColor,},link}"
+            "query":  "product (uuid: "b8c665bd-0461-42d1-b57b-c0bf60d2724f") {
+                uuid,
+                name,
+                shortDescription,
+                stockQuantity,
+                price {
+                    priceWithVat,
+                    priceWithoutVat,
+                    vatAmount
+                },
+                images {
+                    type,
+                    position,
+                    size,
+                    url,
+                    width,
+                    height
+                },
+                flags {
+                    name,
+                    rgbColor
+                },
+                link
+            }"
         }
 
 - Response 200 (application/json; charset=utf-8)
@@ -197,7 +247,31 @@ Runs a GraphQL query.
 - Request (application/json)
 
         {
-            "query":  "query {categories {uuid,name,children {name},parent {name},images {type,position,size,url,width,height},products (first: 1) {edges {node {name}}}}}"
+            "query":  "categories {
+                uuid,
+                name,
+                children {
+                    name
+                },
+                parent {
+                    name
+                },
+                images {
+                    type,
+                    position,
+                    size,
+                    url,
+                    width,
+                    height
+                },
+                products (first: 1) {
+                    edges {
+                        node {
+                            name
+                        }
+                    }
+                }
+            }"
         }
 
 - Response 200 (application/json; charset=utf-8)
@@ -354,7 +428,31 @@ Runs a GraphQL query.
 - Request (application/json)
 
         {
-            "query":  "query {category (uuid: "5e607ede-357d-4852-b7de-c81491866506") {uuid,name,children {name},parent {name},images {type,position,size,url,width,height},products (first: 1) {edges {node {name}}}}}"
+            "query":  "category (uuid: "5e607ede-357d-4852-b7de-c81491866506") {
+                uuid,
+                name,
+                children {
+                    name
+                },
+                parent {
+                    name
+                },
+                images {
+                    type,
+                    position,
+                    size,
+                    url,
+                    width,
+                    height
+                },
+                products (first: 1) {
+                    edges {
+                        node {
+                            name
+                        }
+                    }
+                }
+            }"
         }
 
 - Response 200 (application/json; charset=utf-8)
@@ -405,7 +503,30 @@ Runs a GraphQL query.
 - Request (application/json)
 
         {
-            "query": "query {transports {uuid,name,description,instruction,position,price {priceWithVat,priceWithoutVat,vatAmount},images {type,position,size,url,width,height},payments {uuid,name}}}"
+            "query": "transports {
+                uuid,
+                name,
+                description,
+                instruction,
+                position,
+                price {
+                    priceWithVat,
+                    priceWithoutVat,
+                    vatAmount
+                },
+                images {
+                    type,
+                    position,
+                    size,
+                    url,
+                    width,
+                    height
+                },
+                payments {
+                    uuid,
+                    name
+                }
+            }"
         }
 
 - Response 200 (application/json; charset=utf-8)
@@ -538,7 +659,30 @@ Run a GraphQl query.
 - Request (application/json)
 
         {
-            "query": "query {payments {uuid,name,description,instruction,position,price {priceWithVat,priceWithoutVat,vatAmount},images {type,position,size,url,width,height},transports {uuid,name}}}"
+            "query": "payments {
+                uuid,
+                name,
+                description,
+                instruction,
+                position,
+                price {
+                    priceWithVat,
+                    priceWithoutVat,
+                    vatAmount
+                },
+                images {
+                    type,
+                    position,
+                    size,
+                    url,
+                    width,
+                    height
+                },
+                transports {
+                    uuid,
+                    name
+                }
+            }"
         }
 
 - Response 200 (application/json; charset=utf-8)
