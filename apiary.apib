@@ -1,416 +1,210 @@
 FORMAT: 1A
 HOST: https://polls.apiblueprint.org/
 
-# fe-api
+# Frontend API
 
-This API demonstrates how to describe a GraphQL using API Blueprint.
-This API Bluperint describes example API as found at <http://graphql.org/docs/getting-started/>.
+## List of products [/graphql]
 
-## List of products [/graphql?products]
-
-### post [POST]
+### POST [POST]
 
 Runs a GraphQL query.
 
 - Request (application/json)
 
-        {
-            "query":  "products (first: 3) {
-                edges {
-                    node {
-                        uuid,
-                        name,
-                        shortDescription,
-                        stockQuantity,
-                        price {
-                            priceWithVat,
-                            priceWithoutVat,
-                            vatAmount
-                        },
-                        images {
-                            type,
-                            position,
-                            size,
-                            url,
-                            width,
-                            height
-                        },
-                        flags {
-                            name,
-                            rgbColor
-                        },
-                        link
+    {
+        query: products (first: 2) {
+            edges {
+                node {
+                    uuid
+                    name
+                    shortDescription
+                    link
+                    unit {
+                        name
                     }
-                }
-            }"
-        }
-
-- Response 200 (application/json; charset=utf-8)
-
-        {
-            "data": {
-                "products": {
-                    "edges": [
-                        {
-                            "node": {
-                                "uuid": "76707d75-1633-403c-bcfe-426d210de1a1",
-                                "name": "22\" Sencor SLE 22F46DM4 HELLO KITTY",
-                                "shortDescription": "Television LED, 55 cm diagonal, 1920x1080 Full HD, DVB-T MPEG4 tuner with USB recording and playback",
-                                "stockQuantity": 300,
-                                "price": {
-                                    "priceWithVat": "10",
-                                    "priceWithoutVat": "8",
-                                    "vatAmount": "2"
-                                },
-                                "images": [
-                                    {
-                                        "type": null,
-                                        "position": null,
-                                        "size": "default",
-                                        "url": "https://demo.shopsys.com/content/images/product/list/1.jpg",
-                                        "width": 410,
-                                        "height": null
-                                    },
-                                    {
-                                        "type": null,
-                                        "position": null,
-                                        "size": "galleryThumbnail",
-                                        "url": "https://demo.shopsys.com/content/images/product/galleryThumbnail/1.jpg",
-                                        "width": null,
-                                        "height": 35
-                                    },
-                                    {
-                                        "type": null,
-                                        "position": null,
-                                        "size": "list",
-                                        "url": "https://demo.shopsys.com/content/images/product/list/1.jpg",
-                                        "width": 150,
-                                        "height": null
-                                    }
-                                ],
-                                "flags": [
-                                    {
-                                        "name": "TOP",
-                                        "rgbColor": "#d6fffa"
-                                    },
-                                    {
-                                        "name": "Action",
-                                        "rgbColor": "#f9ffd6"
-                                    }
-                                ],
-                                "link": "https://demo.shopsys.com//22-sencor-sle-22f46dm4-hello-kitty/"
-                            }
-                        },
-                        {
-                            "node": {
-                                "uuid": "53d57486-e329-4723-99b1-58c214c56f2d",
-                                "name": "27” Hyundai T27D590EY",
-                                "shortDescription": "The TV monitor PLS LED, 1000:1, 5ms, 1920x1080, tuner DVB-T/C, PiP +, 2x HDMI, MHL, USB, CI, Scart, 2x 5W speakers, remote control",
-                                "stockQuantity": 100,
-                                "price": {
-                                    "priceWithVat": "30",
-                                    "priceWithoutVat": "25",
-                                    "vatAmount": "5"
-                                },
-                                "images": [
-                                    {
-                                        "type": null,
-                                        "position": null,
-                                        "size": "default",
-                                        "url": "https://demo.shopsys.com/content/images/product/list/2.jpg",
-                                        "width": 410,
-                                        "height": null
-                                    }
-                                ],
-                                "flags": [],
-                                "link": "https://demo.shopsys.com/27-hyundai-t27d590ey-2/"
-                            }
-                        },
-                        {
-                            "node": {
-                                "uuid": "4e091a58-62eb-4cef-b55a-79cdc02f69f5",
-                                "name": "27” Hyundai T27D590EZ",
-                                "shortDescription": "The TV monitor PLS LED, 1000:1, 5ms, 1920x1080, tuner DVB-T/C, PiP +, 2x HDMI, MHL, USB, CI, Scart, 2x 5W speakers, remote control",
-                                "stockQuantity": 100,
-                                "price": {
-                                    "priceWithVat": "3",
-                                    "priceWithoutVat": "2",
-                                    "vatAmount": "1"
-                                },
-                                "images": [
-                                    {
-                                        "type": null,
-                                        "position": null,
-                                        "size": "default",
-                                        "url": "https://demo.shopsys.com/content/images/product/list/3.jpg",
-                                        "width": 410,
-                                        "height": null
-                                    }
-                                ],
-                                "flags": [],
-                                "link": "https://demo.shopsys.com/27-hyundai-t27d590ez/"
-                            }
-                        }
-                    ]
+                    availability {
+                        name
+                    }
+                    stockQuantity
+                    categories {
+                        name
+                    }
+                    flags {
+                        name
+                        rgbColor
+                    }
+                    price {
+                        priceWithVat
+                        priceWithoutVat
+                        vatAmount
+                    }
+                    images {
+                        type
+                        position
+                        size
+                        url
+                        width
+                        height
+                    }
                 }
             }
         }
-
-## Product detail [/graphql?product_detail]
-
-### post [POST]
-
-Runs a GraphQL query.
-
-- Request (application/json)
-
-        {
-            "query":  "product (uuid: "b8c665bd-0461-42d1-b57b-c0bf60d2724f") {
-                uuid,
-                name,
-                shortDescription,
-                stockQuantity,
-                price {
-                    priceWithVat,
-                    priceWithoutVat,
-                    vatAmount
-                },
-                images {
-                    type,
-                    position,
-                    size,
-                    url,
-                    width,
-                    height
-                },
-                flags {
-                    name,
-                    rgbColor
-                },
-                link
-            }"
-        }
+    }
 
 - Response 200 (application/json; charset=utf-8)
 
-        {
-            "data": {
-                "product": {
-                    "uuid": "76707d75-1633-403c-bcfe-426d210de1a1",
-                    "name": "22\" Sencor SLE 22F46DM4 HELLO KITTY",
-                    "shortDescription": "Television LED, 55 cm diagonal, 1920x1080 Full HD, DVB-T MPEG4 tuner with USB recording and playback",
-                    "stockQuantity": 300,
-                    "price": {
-                        "priceWithVat": "119",
-                        "priceWithoutVat": "100",
-                        "vatAmount": "19"
-                    },
-                    "images": [
-                        {
-                            "type": null,
-                            "position": null,
-                            "size": "default",
-                            "url": "http://127.0.0.1:8000/content/images/product/default/1.jpg",
-                            "width": 410,
-                            "height": null
-                        },
-                        {
-                            "type": null,
-                            "position": null,
-                            "size": "galleryThumbnail",
-                            "url": "http://127.0.0.1:8000/content/images/product/galleryThumbnail/1.jpg",
-                            "width": null,
-                            "height": 35
-                        }
-                    ],
-                    "flags": [
-                        {
-                            "name": "TOP",
-                            "rgbColor": "#d6fffa"
-                        },
-                        {
-                            "name": "Action",
-                            "rgbColor": "#f9ffd6"
-                        }
-                    ],
-                    "link": "http://127.0.0.1:8000/22-sencor-sle-22f46dm4-hello-kitty/"
-                }
-            }
-        }
-
-## List of categories [/graphql?categories]
-
-### post [POST]
-
-Runs a GraphQL query.
-
-- Request (application/json)
-
-        {
-            "query":  "categories {
-                uuid,
-                name,
-                children {
-                    name
-                },
-                parent {
-                    name
-                },
-                images {
-                    type,
-                    position,
-                    size,
-                    url,
-                    width,
-                    height
-                },
-                products (first: 1) {
-                    edges {
-                        node {
-                            name
-                        }
-                    }
-                }
-            }"
-        }
-
-- Response 200 (application/json; charset=utf-8)
-
-        {
-            "data": {
-                "categories": [
+    {
+        "data": {
+            "query": {
+                "edges": [
                     {
-                        "uuid": "5e607ede-357d-4852-b7de-c81491866506",
-                        "name": "Electronics",
-                        "children": [
-                            {
-                                "name": "TV, audio"
+                        "node": {
+                            "uuid": "5a095ccf-1ea4-47c6-b773-16b94234c150",
+                            "name": "100 Czech crowns ticket",
+                            "shortDescription": "Coupon valued to 100 Czech crowns. You can cash it at any exchange office",
+                            "link": "http://127.0.0.1:8000/100-czech-crowns-ticket/",
+                            "unit": {
+                                "name": "pcs"
                             },
-                            {
-                                "name": "Cameras & Photo"
-                            }
-                        ],
-                        "parent": {
-                            "name": null
-                        },
-                        "images": [
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/category/default/68.jpg",
-                                "width": 30,
-                                "height": 30
-                            }
-                        ],
-                        "products": {
-                            "edges": [
+                            "availability": {
+                                "name": "In stock"
+                            },
+                            "stockQuantity": 1000000,
+                            "categories": [
                                 {
-                                    "node": {
-                                        "name": "22\" Sencor SLE 22F46DM4 HELLO KITTY"
-                                    }
+                                    "name": "Books"
                                 }
-                            ]
-                        }
-                    },
-                    {
-                        "uuid": "d5e4fe8e-08db-4590-bdba-1b388d36eb81",
-                        "name": "Books",
-                        "children": [],
-                        "parent": {
-                            "name": null
-                        },
-                        "images": [
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/category/default/75.jpg",
-                                "width": 30,
-                                "height": 30
-                            }
-                        ],
-                        "products": {
-                            "edges": [
+                            ],
+                            "flags": [
                                 {
-                                    "node": {
-                                        "name": "100 Czech crowns ticket"
-                                    }
+                                    "name": "TOP",
+                                    "rgbColor": "#d6fffa"
                                 }
-                            ]
+                            ],
+                            "price": {
+                                "priceWithVat": "4.84",
+                                "priceWithoutVat": "4.00",
+                                "vatAmount": "0.84"
+                            },
+                            "images": []
                         }
                     },
                     {
-                        "uuid": "6bdc16b8-5128-4743-b263-d6edb1e6a61e",
-                        "name": "Toys",
-                        "children": [],
-                        "parent": {
-                            "name": null
-                        },
-                        "images": [
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/category/default/76.jpg",
-                                "width": 30,
-                                "height": 30
-                            }
-                        ],
-                        "products": {
-                            "edges": []
-                        }
-                    },
-                    {
-                        "uuid": "97af6458-90ac-48f3-be55-63e549cdda47",
-                        "name": "Garden tools",
-                        "children": [],
-                        "parent": {
-                            "name": null
-                        },
-                        "images": [
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/category/default/77.jpg",
-                                "width": 30,
-                                "height": 30
-                            }
-                        ],
-                        "products": {
-                            "edges": [
+                        "node": {
+                            "uuid": "04a561ae-d08c-47f9-aed0-e52c469038aa",
+                            "name": "22\" Sencor SLE 22F46DM4 HELLO KITTY",
+                            "shortDescription": "Television LED, 55 cm diagonal, 1920x1080 Full HD, DVB-T MPEG4 tuner with USB recording and playback",
+                            "link": "http://127.0.0.1:8000/22-sencor-sle-22f46dm4-hello-kitty/",
+                            "unit": {
+                                "name": "pcs"
+                            },
+                            "availability": {
+                                "name": "In stock"
+                            },
+                            "stockQuantity": 300,
+                            "categories": [
                                 {
-                                    "node": {
-                                        "name": "Cleaner 3in1 stainless steel appliances (4039286078461)"
-                                    }
+                                    "name": "Electronics"
+                                },
+                                {
+                                    "name": "TV, audio"
                                 }
-                            ]
-                        }
-                    },
-                    {
-                        "uuid": "204a09c1-a249-4516-9bf5-2b765d4bbe72",
-                        "name": "Food",
-                        "children": [],
-                        "parent": {
-                            "name": null
-                        },
-                        "images": [
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/category/default/78.jpg",
-                                "width": 30,
-                                "height": 30
-                            }
-                        ],
-                        "products": {
-                            "edges": [
+                            ],
+                            "flags": [
                                 {
-                                    "node": {
-                                        "name": "Aquila Aquagym non-carbonated spring water"
-                                    }
+                                    "name": "TOP",
+                                    "rgbColor": "#d6fffa"
+                                },
+                                {
+                                    "name": "Action",
+                                    "rgbColor": "#f9ffd6"
+                                }
+                            ],
+                            "price": {
+                                "priceWithVat": "139.96",
+                                "priceWithoutVat": "115.67",
+                                "vatAmount": "24.29"
+                            },
+                            "images": [
+                                {
+                                    "type": null,
+                                    "position": null,
+                                    "size": "default",
+                                    "url": "http://127.0.0.1:8000/content/images/product/default/1.jpg",
+                                    "width": 410,
+                                    "height": null
+                                },
+                                {
+                                    "type": null,
+                                    "position": null,
+                                    "size": "galleryThumbnail",
+                                    "url": "http://127.0.0.1:8000/content/images/product/galleryThumbnail/1.jpg",
+                                    "width": null,
+                                    "height": 35
+                                },
+                                {
+                                    "type": null,
+                                    "position": null,
+                                    "size": "list",
+                                    "url": "http://127.0.0.1:8000/content/images/product/list/1.jpg",
+                                    "width": 150,
+                                    "height": null
+                                },
+                                {
+                                    "type": null,
+                                    "position": null,
+                                    "size": "thumbnail",
+                                    "url": "http://127.0.0.1:8000/content/images/product/thumbnail/1.jpg",
+                                    "width": 50,
+                                    "height": 40
+                                },
+                                {
+                                    "type": null,
+                                    "position": null,
+                                    "size": "original",
+                                    "url": "http://127.0.0.1:8000/content/images/product/original/1.jpg",
+                                    "width": null,
+                                    "height": null
+                                },
+                                {
+                                    "type": null,
+                                    "position": null,
+                                    "size": "default",
+                                    "url": "http://127.0.0.1:8000/content/images/product/default/64.jpg",
+                                    "width": 410,
+                                    "height": null
+                                },
+                                {
+                                    "type": null,
+                                    "position": null,
+                                    "size": "galleryThumbnail",
+                                    "url": "http://127.0.0.1:8000/content/images/product/galleryThumbnail/64.jpg",
+                                    "width": null,
+                                    "height": 35
+                                },
+                                {
+                                    "type": null,
+                                    "position": null,
+                                    "size": "list",
+                                    "url": "http://127.0.0.1:8000/content/images/product/list/64.jpg",
+                                    "width": 150,
+                                    "height": null
+                                },
+                                {
+                                    "type": null,
+                                    "position": null,
+                                    "size": "thumbnail",
+                                    "url": "http://127.0.0.1:8000/content/images/product/thumbnail/64.jpg",
+                                    "width": 50,
+                                    "height": 40
+                                },
+                                {
+                                    "type": null,
+                                    "position": null,
+                                    "size": "original",
+                                    "url": "http://127.0.0.1:8000/content/images/product/original/64.jpg",
+                                    "width": null,
+                                    "height": null
                                 }
                             ]
                         }
@@ -418,49 +212,300 @@ Runs a GraphQL query.
                 ]
             }
         }
+    }
 
-## Category detail [/graphql?category_detail]
+## Product detail [/graphql]
 
-### post [POST]
+### POST [POST]
 
 Runs a GraphQL query.
 
 - Request (application/json)
 
-        {
-            "query":  "category (uuid: "5e607ede-357d-4852-b7de-c81491866506") {
-                uuid,
-                name,
-                children {
-                    name
-                },
-                parent {
-                    name
-                },
-                images {
-                    type,
-                    position,
-                    size,
-                    url,
-                    width,
-                    height
-                },
-                products (first: 1) {
-                    edges {
-                        node {
-                            name
-                        }
-                    }
-                }
-            }"
+    {
+        query: product (uuid: "04a561ae-d08c-47f9-aed0-e52c469038aa") {
+            uuid,
+            name
+            shortDescription
+            link
+            unit {
+                name
+            }
+            availability {
+                name
+            }
+            stockQuantity
+            categories {
+                name
+            }
+            flags {
+                name
+                rgbColor
+            }
+            price {
+                priceWithVat
+                priceWithoutVat
+                vatAmount
+            }
+            images {
+                type
+                position
+                size
+                url
+                width
+                height
+            }
         }
+    }
+
+- Response 200 (application/json; charset=utf-8)
+    {
+        "data": {
+            "query": {
+                "uuid": "04a561ae-d08c-47f9-aed0-e52c469038aa",
+                "name": "22\" Sencor SLE 22F46DM4 HELLO KITTY",
+                "shortDescription": "Television LED, 55 cm diagonal, 1920x1080 Full HD, DVB-T MPEG4 tuner with USB recording and playback",
+                "link": "http://127.0.0.1:8000/22-sencor-sle-22f46dm4-hello-kitty/",
+                "unit": {
+                    "name": "pcs"
+                },
+                "availability": {
+                    "name": "In stock"
+                },
+                "stockQuantity": 300,
+                "categories": [
+                    {
+                        "name": "Electronics"
+                    },
+                    {
+                        "name": "TV, audio"
+                    }
+                ],
+                "flags": [
+                    {
+                        "name": "TOP",
+                        "rgbColor": "#d6fffa"
+                    },
+                    {
+                        "name": "Action",
+                        "rgbColor": "#f9ffd6"
+                    }
+                ],
+                "price": {
+                    "priceWithVat": "139.96",
+                    "priceWithoutVat": "115.67",
+                    "vatAmount": "24.29"
+                },
+                "images": [
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "default",
+                        "url": "http://127.0.0.1:8000/content/images/product/default/1.jpg",
+                        "width": 410,
+                        "height": null
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "galleryThumbnail",
+                        "url": "http://127.0.0.1:8000/content/images/product/galleryThumbnail/1.jpg",
+                        "width": null,
+                        "height": 35
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "list",
+                        "url": "http://127.0.0.1:8000/content/images/product/list/1.jpg",
+                        "width": 150,
+                        "height": null
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "thumbnail",
+                        "url": "http://127.0.0.1:8000/content/images/product/thumbnail/1.jpg",
+                        "width": 50,
+                        "height": 40
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "original",
+                        "url": "http://127.0.0.1:8000/content/images/product/original/1.jpg",
+                        "width": null,
+                        "height": null
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "default",
+                        "url": "http://127.0.0.1:8000/content/images/product/default/64.jpg",
+                        "width": 410,
+                        "height": null
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "galleryThumbnail",
+                        "url": "http://127.0.0.1:8000/content/images/product/galleryThumbnail/64.jpg",
+                        "width": null,
+                        "height": 35
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "list",
+                        "url": "http://127.0.0.1:8000/content/images/product/list/64.jpg",
+                        "width": 150,
+                        "height": null
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "thumbnail",
+                        "url": "http://127.0.0.1:8000/content/images/product/thumbnail/64.jpg",
+                        "width": 50,
+                        "height": 40
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "original",
+                        "url": "http://127.0.0.1:8000/content/images/product/original/64.jpg",
+                        "width": null,
+                        "height": null
+                    }
+                ]
+            }
+        }
+    }
+
+## Main variant with variants [/graphql]
+
+### POST [POST]
+
+Runs a GraphQL query.
+
+- Request (application/json)
+
+    {
+        query: product(uuid: "49bc5aa8-c7e1-477d-9e0b-0208129ef56b") {
+            __typename
+            uuid
+            name
+            ...on MainVariant {
+              variants {
+                name
+              }
+            }
+        }
+    }
 
 - Response 200 (application/json; charset=utf-8)
 
-        {
-            "data": {
-                "categoriy": {
-                    "uuid": "5e607ede-357d-4852-b7de-c81491866506",
+    {
+        "data": {
+            "query": {
+                "__typename": "MainVariant",
+                "uuid": "49bc5aa8-c7e1-477d-9e0b-0208129ef56b",
+                "name": "Hyundai 22HD44D",
+                "variants": [
+                    {
+                        "name": "51,5” Hyundai 22HD44D"
+                    },
+                    {
+                        "name": "60” Hyundai 22HD44D"
+                    },
+                    {
+                        "name": "Hyundai 22HD44D"
+                    }
+                ]
+            }
+        }
+    }
+
+
+## Variant with main variant [/graphql]
+
+### POST [POST]
+
+Runs a GraphQL query.
+
+- Request (application/json)
+
+    {
+        query: product(uuid: "81075e9a-29dc-4d37-b7aa-20800e8959cc") {
+            __typename
+            uuid
+            name
+            ...on Variant {
+              mainVariant {
+                name
+              }
+            }
+        }
+    }
+
+- Response 200 (application/json; charset=utf-8)
+
+    {
+        "data": {
+            "query": {
+                "__typename": "Variant",
+                "uuid": "81075e9a-29dc-4d37-b7aa-20800e8959cc",
+                "name": "51,5” Hyundai 22HD44D",
+                "mainVariant": {
+                    "name": "Hyundai 22HD44D"
+                }
+            }
+        }
+    }
+
+## List of categories [/graphql]
+
+### POST [POST]
+
+Runs a GraphQL query.
+
+- Request (application/json)
+
+    {
+        query: categories {
+            uuid
+            name
+            children {
+                name
+            }
+            parent {
+                name
+            }
+            images {
+                type
+                position
+                size
+                url
+                width
+                height
+            }
+            products (first: 1) {
+                edges {
+                    node {
+                        name
+                    }
+                }
+            }
+        }
+    }
+
+- Response 200 (application/json; charset=utf-8)
+
+    {
+        "data": {
+            "query": [
+                {
+                    "uuid": "f757f375-2828-489a-9b60-46c608f05b4f",
                     "name": "Electronics",
                     "children": [
                         {
@@ -468,6 +513,18 @@ Runs a GraphQL query.
                         },
                         {
                             "name": "Cameras & Photo"
+                        },
+                        {
+                            "name": "Printers"
+                        },
+                        {
+                            "name": "Personal Computers & accessories"
+                        },
+                        {
+                            "name": "Mobile Phones"
+                        },
+                        {
+                            "name": "Coffee Machines"
                         }
                     ],
                     "parent": {
@@ -481,6 +538,14 @@ Runs a GraphQL query.
                             "url": "http://127.0.0.1:8000/content/images/category/default/68.jpg",
                             "width": 30,
                             "height": 30
+                        },
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "original",
+                            "url": "http://127.0.0.1:8000/content/images/category/original/68.jpg",
+                            "width": null,
+                            "height": null
                         }
                     ],
                     "products": {
@@ -492,316 +557,576 @@ Runs a GraphQL query.
                             }
                         ]
                     }
-                }
-            }
-        }
-
-## List of transport methods [/graphql?transports]
-
-### post [POST]
-
-- Request (application/json)
-
-        {
-            "query": "transports {
-                uuid,
-                name,
-                description,
-                instruction,
-                position,
-                price {
-                    priceWithVat,
-                    priceWithoutVat,
-                    vatAmount
                 },
-                images {
-                    type,
-                    position,
-                    size,
-                    url,
-                    width,
-                    height
-                },
-                payments {
-                    uuid,
-                    name
-                }
-            }"
-        }
-
-- Response 200 (application/json; charset=utf-8)
-
-        {
-            "data": {
-                "transports": [
-                    {
-                        "uuid": "f3e8ee28-4156-4941-8070-344821987f22",
-                        "name": "Czech post",
-                        "description": null,
-                        "instruction": null,
-                        "position": 0,
-                        "price": {
-                            "priceWithVat": "3",
-                            "priceWithoutVat": "2.00",
-                            "vatAmount": "1.00"
-                        },
-                        "images": [
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/transport/default/56.jpg",
-                                "width": null,
-                                "height": 20
-                            },
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "original",
-                                "url": "http://127.0.0.1:8000/content/images/transport/original/56.jpg",
-                                "width": null,
-                                "height": null
-                            }
-                        ],
-                        "payments": [
-                            {
-                                "uuid": "6068b455-45bb-4f4b-b9b8-eb62db954e76",
-                                "name": "Cash on delivery"
-                            }
-                        ]
+                {
+                    "uuid": "093460cd-7e31-4847-8ae7-a5d8a3241f47",
+                    "name": "Books",
+                    "children": [],
+                    "parent": {
+                        "name": null
                     },
-                    {
-                        "uuid": "4c5f2102-6aa5-4a09-bb8f-275fba3a2866",
-                        "name": "PPL",
-                        "description": null,
-                        "instruction": null,
-                        "position": 1,
-                        "price": {
-                            "priceWithVat": "8",
-                            "priceWithoutVat": "6.00",
-                            "vatAmount": "2.00"
+                    "images": [
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "default",
+                            "url": "http://127.0.0.1:8000/content/images/category/default/75.jpg",
+                            "width": 30,
+                            "height": 30
                         },
-                        "images": [
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "original",
+                            "url": "http://127.0.0.1:8000/content/images/category/original/75.jpg",
+                            "width": null,
+                            "height": null
+                        }
+                    ],
+                    "products": {
+                        "edges": [
                             {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/transport/default/57.jpg",
-                                "width": null,
-                                "height": 20
-                            },
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "original",
-                                "url": "http://127.0.0.1:8000/content/images/transport/original/57.jpg",
-                                "width": null,
-                                "height": null
-                            }
-                        ],
-                        "payments": [
-                            {
-                                "uuid": "e09610bc-a01b-42b4-bb99-ea0e92222fae",
-                                "name": "Credit card"
-                            }
-                        ]
-                    },
-                    {
-                        "uuid": "554f8e88-d9c9-4377-a505-eaddb66a1cb4",
-                        "name": "Personal collection",
-                        "description": "You will be welcomed by friendly staff!",
-                        "instruction": null,
-                        "position": 2,
-                        "price": {
-                            "priceWithVat": "0",
-                            "priceWithoutVat": "0",
-                            "vatAmount": "0"
-                        },
-                        "images": [
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/transport/default/58.jpg",
-                                "width": null,
-                                "height": 20
-                            },
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "original",
-                                "url": "http://127.0.0.1:8000/content/images/transport/original/58.jpg",
-                                "width": null,
-                                "height": null
-                            }
-                        ],
-                        "payments": [
-                            {
-                                "uuid": "e09610bc-a01b-42b4-bb99-ea0e92222fae",
-                                "name": "Credit card"
-                            },
-                            {
-                                "uuid": "3ca0281b-3690-4a8e-b2aa-4292f5019673",
-                                "name": "Cash"
+                                "node": {
+                                    "name": "100 Czech crowns ticket"
+                                }
                             }
                         ]
                     }
-                ]
+                },
+                {
+                    "uuid": "c011e65f-201e-459c-a1b5-47da5942a13d",
+                    "name": "Toys",
+                    "children": [],
+                    "parent": {
+                        "name": null
+                    },
+                    "images": [
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "default",
+                            "url": "http://127.0.0.1:8000/content/images/category/default/76.jpg",
+                            "width": 30,
+                            "height": 30
+                        },
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "original",
+                            "url": "http://127.0.0.1:8000/content/images/category/original/76.jpg",
+                            "width": null,
+                            "height": null
+                        }
+                    ],
+                    "products": {
+                        "edges": []
+                    }
+                },
+                {
+                    "uuid": "3c8d9534-6432-4726-b068-bab0a47036cd",
+                    "name": "Garden tools",
+                    "children": [],
+                    "parent": {
+                        "name": null
+                    },
+                    "images": [
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "default",
+                            "url": "http://127.0.0.1:8000/content/images/category/default/77.jpg",
+                            "width": 30,
+                            "height": 30
+                        },
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "original",
+                            "url": "http://127.0.0.1:8000/content/images/category/original/77.jpg",
+                            "width": null,
+                            "height": null
+                        }
+                    ],
+                    "products": {
+                        "edges": [
+                            {
+                                "node": {
+                                    "name": "Cleaner 3in1 stainless steel appliances (4039286078461)"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "uuid": "2c7c9a49-8626-4e4c-b081-e48d663417a1",
+                    "name": "Food",
+                    "children": [],
+                    "parent": {
+                        "name": null
+                    },
+                    "images": [
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "default",
+                            "url": "http://127.0.0.1:8000/content/images/category/default/78.jpg",
+                            "width": 30,
+                            "height": 30
+                        },
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "original",
+                            "url": "http://127.0.0.1:8000/content/images/category/original/78.jpg",
+                            "width": null,
+                            "height": null
+                        }
+                    ],
+                    "products": {
+                        "edges": [
+                            {
+                                "node": {
+                                    "name": "Aquila Aquagym non-carbonated spring water"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+
+## Category detail [/graphql]
+
+### POST [POST]
+
+Runs a GraphQL query.
+
+- Request (application/json)
+
+    {
+        query: category (uuid: "f757f375-2828-489a-9b60-46c608f05b4f") {
+            uuid
+            name
+            children {
+                name
+            }
+            parent {
+                name
+            }
+            images {
+                type
+                position
+                size
+                url
+                width
+                height
+            }
+            products (first: 1) {
+                edges {
+                    node {
+                        name
+                    }
+                }
             }
         }
+    }
 
-## List of payment methods [/graphql?payments]
+- Response 200 (application/json; charset=utf-8)
 
-### post [POST]
+    {
+        "data": {
+            "query": {
+                "uuid": "f757f375-2828-489a-9b60-46c608f05b4f",
+                "name": "Electronics",
+                "children": [
+                    {
+                        "name": "TV, audio"
+                    },
+                    {
+                        "name": "Cameras & Photo"
+                    },
+                    {
+                        "name": "Printers"
+                    },
+                    {
+                        "name": "Personal Computers & accessories"
+                    },
+                    {
+                        "name": "Mobile Phones"
+                    },
+                    {
+                        "name": "Coffee Machines"
+                    }
+                ],
+                "parent": {
+                    "name": null
+                },
+                "images": [
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "default",
+                        "url": "http://127.0.0.1:8000/content/images/category/default/68.jpg",
+                        "width": 30,
+                        "height": 30
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "original",
+                        "url": "http://127.0.0.1:8000/content/images/category/original/68.jpg",
+                        "width": null,
+                        "height": null
+                    }
+                ],
+                "products": {
+                    "edges": [
+                        {
+                            "node": {
+                                "name": "22\" Sencor SLE 22F46DM4 HELLO KITTY"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+
+## List of transport methods [/graphql]
+
+### POST [POST]
+
+- Request (application/json)
+
+    {
+        query: transports {
+            uuid
+            name
+            description
+            instruction
+            position
+            price {
+                priceWithVat
+                priceWithoutVat
+                vatAmount
+            }
+            images {
+                type
+                position
+                size
+                url
+                width
+                height
+            }
+            payments {
+                uuid
+                name
+            }
+        }
+    }
+
+- Response 200 (application/json; charset=utf-8)
+    {
+        "data": {
+            "query": [
+                {
+                    "uuid": "edbafa26-9306-46ed-b1e8-d1570f072832",
+                    "name": "Czech post",
+                    "description": null,
+                    "instruction": null,
+                    "position": 0,
+                    "price": {
+                        "priceWithVat": "4.84",
+                        "priceWithoutVat": "4.00",
+                        "vatAmount": "0.84"
+                    },
+                    "images": [
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "default",
+                            "url": "http://127.0.0.1:8000/content/images/transport/default/56.jpg",
+                            "width": null,
+                            "height": 20
+                        },
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "original",
+                            "url": "http://127.0.0.1:8000/content/images/transport/original/56.jpg",
+                            "width": null,
+                            "height": null
+                        }
+                    ],
+                    "payments": [
+                        {
+                            "uuid": "840f9191-c6f2-4ab0-9788-9c038f211ca6",
+                            "name": "Cash on delivery"
+                        }
+                    ]
+                },
+                {
+                    "uuid": "2cc1d47a-6832-43d2-b9cc-738824b3613b",
+                    "name": "PPL",
+                    "description": null,
+                    "instruction": null,
+                    "position": 1,
+                    "price": {
+                        "priceWithVat": "9.68",
+                        "priceWithoutVat": "8.00",
+                        "vatAmount": "1.68"
+                    },
+                    "images": [
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "default",
+                            "url": "http://127.0.0.1:8000/content/images/transport/default/57.jpg",
+                            "width": null,
+                            "height": 20
+                        },
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "original",
+                            "url": "http://127.0.0.1:8000/content/images/transport/original/57.jpg",
+                            "width": null,
+                            "height": null
+                        }
+                    ],
+                    "payments": [
+                        {
+                            "uuid": "81c834a6-f993-46f3-a3cd-a8ee868884e3",
+                            "name": "Credit card"
+                        }
+                    ]
+                },
+                {
+                    "uuid": "adecf603-f491-4ece-b049-8d0d86a1e48c",
+                    "name": "Personal collection",
+                    "description": "You will be welcomed by friendly staff!",
+                    "instruction": null,
+                    "position": 2,
+                    "price": {
+                        "priceWithVat": "0.00",
+                        "priceWithoutVat": "0.00",
+                        "vatAmount": "0.00"
+                    },
+                    "images": [
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "default",
+                            "url": "http://127.0.0.1:8000/content/images/transport/default/58.jpg",
+                            "width": null,
+                            "height": 20
+                        },
+                        {
+                            "type": null,
+                            "position": null,
+                            "size": "original",
+                            "url": "http://127.0.0.1:8000/content/images/transport/original/58.jpg",
+                            "width": null,
+                            "height": null
+                        }
+                    ],
+                    "payments": [
+                        {
+                            "uuid": "81c834a6-f993-46f3-a3cd-a8ee868884e3",
+                            "name": "Credit card"
+                        },
+                        {
+                            "uuid": "76145869-900e-4051-a7be-2e0d1796cd6b",
+                            "name": "Cash"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+
+## List of payment methods [/graphql]
+
+### POST [POST]
 
 Run a GraphQl query.
 
 - Request (application/json)
 
-        {
-            "query": "payments {
-                uuid,
-                name,
-                description,
-                instruction,
-                position,
-                price {
-                    priceWithVat,
-                    priceWithoutVat,
-                    vatAmount
-                },
-                images {
-                    type,
-                    position,
-                    size,
-                    url,
-                    width,
-                    height
-                },
-                transports {
-                    uuid,
-                    name
-                }
-            }"
+    {
+        query: payments {
+            uuid
+            name
+            description
+            instruction
+            position
+            price {
+                priceWithVat
+                priceWithoutVat
+                vatAmount
+            }
+            images {
+                type
+                position
+                size
+                url
+                width
+                height
+            }
+            transports {
+                uuid
+                name
+            }
         }
+    }
 
 - Response 200 (application/json; charset=utf-8)
 
-        {
-            "data": {
-                "payments": [
-                    {
-                        "uuid": "e09610bc-a01b-42b4-bb99-ea0e92222fae",
-                        "name": "Credit card",
-                        "description": "Quick, cheap and reliable!",
-                        "instruction": null,
-                        "position": 0,
-                        "price": {
-                            "priceWithVat": "4.00",
-                            "priceWithoutVat": "4.00",
-                            "vatAmount": "0.00"
-                        },
-                        "images": [
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/payment/default/53.jpg",
-                                "width": null,
-                                "height": 20
-                            },
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "original",
-                                "url": "http://127.0.0.1:8000/content/images/payment/original/53.jpg",
-                                "width": null,
-                                "height": null
-                            }
-                        ],
-                        "transports": [
-                            {
-                                "uuid": "4c5f2102-6aa5-4a09-bb8f-275fba3a2866",
-                                "name": "PPL"
-                            },
-                            {
-                                "uuid": "554f8e88-d9c9-4377-a505-eaddb66a1cb4",
-                                "name": "Personal collection"
-                            }
-                        ]
-                    },
-                    {
-                        "uuid": "6068b455-45bb-4f4b-b9b8-eb62db954e76",
-                        "name": "Cash on delivery",
-                        "description": null,
-                        "instruction": null,
-                        "position": 1,
-                        "price": {
-                            "priceWithVat": "2",
-                            "priceWithoutVat": "2.00",
-                            "vatAmount": "0.00"
-                        },
-                        "images": [
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/payment/default/55.jpg",
-                                "width": null,
-                                "height": 20
-                            },
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "original",
-                                "url": "http://127.0.0.1:8000/content/images/payment/original/55.jpg",
-                                "width": null,
-                                "height": null
-                            }
-                        ],
-                        "transports": [
-                            {
-                                "uuid": "f3e8ee28-4156-4941-8070-344821987f22",
-                                "name": "Czech post"
-                            }
-                        ]
-                    },
-                    {
-                        "uuid": "3ca0281b-3690-4a8e-b2aa-4292f5019673",
-                        "name": "Cash",
-                        "description": null,
-                        "instruction": null,
-                        "position": 2,
-                        "price": {
-                            "priceWithVat": "0",
-                            "priceWithoutVat": "0",
-                            "vatAmount": "0"
-                        },
-                        "images": [
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "default",
-                                "url": "http://127.0.0.1:8000/content/images/payment/default/54.jpg",
-                                "width": null,
-                                "height": 20
-                            },
-                            {
-                                "type": null,
-                                "position": null,
-                                "size": "original",
-                                "url": "http://127.0.0.1:8000/content/images/payment/original/54.jpg",
-                                "width": null,
-                                "height": null
-                            }
-                        ],
-                        "transports": [
-                            {
-                                "uuid": "554f8e88-d9c9-4377-a505-eaddb66a1cb4",
-                                "name": "Personal collection"
-                            }
-                        ]
-                    }
-                ]
+     {
+         "data": {
+             "query": [
+                 {
+                     "uuid": "81c834a6-f993-46f3-a3cd-a8ee868884e3",
+                     "name": "Credit card",
+                     "description": "Quick, cheap and reliable!",
+                     "instruction": null,
+                     "position": 0,
+                     "price": {
+                         "priceWithVat": "4.00",
+                         "priceWithoutVat": "4.00",
+                         "vatAmount": "0.00"
+                     },
+                     "images": [
+                         {
+                             "type": null,
+                             "position": null,
+                             "size": "default",
+                             "url": "http://127.0.0.1:8000/content/images/payment/default/53.jpg",
+                             "width": null,
+                             "height": 20
+                         },
+                         {
+                             "type": null,
+                             "position": null,
+                             "size": "original",
+                             "url": "http://127.0.0.1:8000/content/images/payment/original/53.jpg",
+                             "width": null,
+                             "height": null
+                         }
+                     ],
+                     "transports": [
+                         {
+                             "uuid": "2cc1d47a-6832-43d2-b9cc-738824b3613b",
+                             "name": "PPL"
+                         },
+                         {
+                             "uuid": "adecf603-f491-4ece-b049-8d0d86a1e48c",
+                             "name": "Personal collection"
+                         }
+                     ]
+                 },
+                 {
+                     "uuid": "840f9191-c6f2-4ab0-9788-9c038f211ca6",
+                     "name": "Cash on delivery",
+                     "description": null,
+                     "instruction": null,
+                     "position": 1,
+                     "price": {
+                         "priceWithVat": "2.00",
+                         "priceWithoutVat": "2.00",
+                         "vatAmount": "0.00"
+                     },
+                     "images": [
+                         {
+                             "type": null,
+                             "position": null,
+                             "size": "default",
+                             "url": "http://127.0.0.1:8000/content/images/payment/default/55.jpg",
+                             "width": null,
+                             "height": 20
+                         },
+                         {
+                             "type": null,
+                             "position": null,
+                             "size": "original",
+                             "url": "http://127.0.0.1:8000/content/images/payment/original/55.jpg",
+                             "width": null,
+                             "height": null
+                         }
+                     ],
+                     "transports": [
+                         {
+                             "uuid": "edbafa26-9306-46ed-b1e8-d1570f072832",
+                             "name": "Czech post"
+                         }
+                     ]
+                 },
+                 {
+                     "uuid": "76145869-900e-4051-a7be-2e0d1796cd6b",
+                     "name": "Cash",
+                     "description": null,
+                     "instruction": null,
+                     "position": 2,
+                     "price": {
+                         "priceWithVat": "0.00",
+                         "priceWithoutVat": "0.00",
+                         "vatAmount": "0.00"
+                     },
+                     "images": [
+                         {
+                             "type": null,
+                             "position": null,
+                             "size": "default",
+                             "url": "http://127.0.0.1:8000/content/images/payment/default/54.jpg",
+                             "width": null,
+                             "height": 20
+                         },
+                         {
+                             "type": null,
+                             "position": null,
+                             "size": "original",
+                             "url": "http://127.0.0.1:8000/content/images/payment/original/54.jpg",
+                             "width": null,
+                             "height": null
+                         }
+                     ],
+                     "transports": [
+                         {
+                             "uuid": "adecf603-f491-4ece-b049-8d0d86a1e48c",
+                             "name": "Personal collection"
+                         }
+                     ]
+                 }
+             ]
+         }
+     }
+
+## Login [/graphql]
+
+### POST [POST]
+
+Run a GraphQl query.
+
+- Request (application/json)
+
+    mutation {
+        Login(input: {
+            email: "no-reply@shopsys.com"
+            password: "user123"
+        }) {
+            accessToken
+            refreshToken
+        }
+    }
+
+- Response 200 (application/json; charset=utf-8)
+
+    {
+        "data": {
+            "Login": {
+                "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMCIsImF1ZCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwiaWF0IjoxNTg2NDM2NTg3LCJleHAiOjE1ODY0NDAxODcsInV1aWQiOiI0ZDAwNTEyZi1lNDkxLTRmMzEtYjBjYi04ZTViOGU0ODQ5ZDEiLCJlbWFpbCI6Im5vLXJlcGx5QHNob3BzeXMuY29tIiwiZnVsbE5hbWUiOiJTaG9wc3lzIiwicm9sZXMiOlsiUk9MRV9MT0dHRURfQ1VTVE9NRVIiXX0.cTOk-HrBeLh6DsmFY49Dg7VXACmivLi-6MJU5C4XW8o",
+                "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMCIsImF1ZCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwiaWF0IjoxNTg2NDM2NTg3LCJleHAiOjE1ODc2NDYxODcsInV1aWQiOiI0ZDAwNTEyZi1lNDkxLTRmMzEtYjBjYi04ZTViOGU0ODQ5ZDEiLCJzZWNyZXRDaGFpbiI6ImIyMGZkMTNkODIyNTVhNzdmYzJjYWM4OTA1YzU1MWQxZjNjYjc3ODkifQ._mBpd4yQZ1bF4aC6YY3C1BDI1mrH2hV_w0Yh9mKu_i0"
             }
         }
+    }
