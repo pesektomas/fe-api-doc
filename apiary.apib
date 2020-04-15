@@ -7,7 +7,8 @@ HOST: https://polls.apiblueprint.org/
 
 ### POST [POST]
 
-Runs a GraphQL query.
+Returns list of product that can be paginated using `first`, `last`, `before` and `after` keywords.
+You can read more about Connection specification in [connections article](https://relay.dev/graphql/connections.htm).
 
 - Request (application/json)
 
@@ -218,7 +219,7 @@ Runs a GraphQL query.
 
 ### POST [POST]
 
-Runs a GraphQL query.
+Returns product filtered using UUID
 
 - Request (application/json)
 
@@ -386,7 +387,7 @@ Runs a GraphQL query.
 
 ### POST [POST]
 
-Runs a GraphQL query.
+Lists variants for main variant
 
 - Request (application/json)
 
@@ -431,7 +432,7 @@ Runs a GraphQL query.
 
 ### POST [POST]
 
-Runs a GraphQL query.
+Adds main variant for variants
 
 - Request (application/json)
 
@@ -467,7 +468,7 @@ Runs a GraphQL query.
 
 ### POST [POST]
 
-Runs a GraphQL query.
+Returns complete list of categories
 
 - Request (application/json)
 
@@ -700,7 +701,7 @@ Runs a GraphQL query.
 
 ### POST [POST]
 
-Runs a GraphQL query.
+Returns category filtered using UUID
 
 - Request (application/json)
 
@@ -797,6 +798,8 @@ Runs a GraphQL query.
 
 ### POST [POST]
 
+Returns complete list of transport methods
+
 - Request (application/json)
 
     {
@@ -827,6 +830,7 @@ Runs a GraphQL query.
     }
 
 - Response 200 (application/json; charset=utf-8)
+
     {
         "data": {
             "query": [
@@ -946,11 +950,89 @@ Runs a GraphQL query.
         }
     }
 
+## Transport method detail [/graphql]
+
+### POST [POST]
+
+Returns transport filtered using UUID
+
+- Request (application/json)
+
+    {
+        query: transport(uuid: "edbafa26-9306-46ed-b1e8-d1570f072832") {
+            uuid
+            name
+            description
+            instruction
+            position
+            price {
+                priceWithVat
+                priceWithoutVat
+                vatAmount
+            }
+            images {
+                type
+                position
+                size
+                url
+                width
+                height
+            }
+            payments {
+                uuid
+                name
+            }
+        }
+    }
+
+- Response 200 (application/json; charset=utf-8)
+
+    {
+        "data": {
+            "query": {
+                "uuid": "edbafa26-9306-46ed-b1e8-d1570f072832",
+                "name": "Czech post",
+                "description": null,
+                "instruction": null,
+                "position": 0,
+                "price": {
+                    "priceWithVat": "4.84",
+                    "priceWithoutVat": "4.00",
+                    "vatAmount": "0.84"
+                },
+                "images": [
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "default",
+                        "url": "http://127.0.0.1:8000/content/images/transport/default/56.jpg",
+                        "width": null,
+                        "height": 20
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "original",
+                        "url": "http://127.0.0.1:8000/content/images/transport/original/56.jpg",
+                        "width": null,
+                        "height": null
+                    }
+                ],
+                "payments": [
+                    {
+                        "uuid": "840f9191-c6f2-4ab0-9788-9c038f211ca6",
+                        "name": "Cash on delivery"
+                    }
+                ]
+            }
+        }
+    }
+
 ## List of payment methods [/graphql]
 
 ### POST [POST]
 
-Run a GraphQl query.
+Returns complete list of payment methods
 
 - Request (application/json)
 
@@ -1102,11 +1184,93 @@ Run a GraphQl query.
          }
      }
 
+## Detail of payment method [/graphql]
+
+### POST [POST]
+
+Returns payment filtered using UUID
+
+- Request (application/json)
+
+    {
+        query: payment(uuid: "81c834a6-f993-46f3-a3cd-a8ee868884e3") {
+            uuid
+            name
+            description
+            instruction
+            position
+            price {
+                priceWithVat
+                priceWithoutVat
+                vatAmount
+            }
+            images {
+                type
+                position
+                size
+                url
+                width
+                height
+            }
+            transports {
+                uuid
+                name
+            }
+        }
+    }
+
+- Response 200 (application/json; charset=utf-8)
+
+    {
+        "data": {
+            "query": {
+                "uuid": "81c834a6-f993-46f3-a3cd-a8ee868884e3",
+                "name": "Credit card",
+                "description": "Quick, cheap and reliable!",
+                "instruction": null,
+                "position": 0,
+                "price": {
+                    "priceWithVat": "4.00",
+                    "priceWithoutVat": "4.00",
+                    "vatAmount": "0.00"
+                },
+                "images": [
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "default",
+                        "url": "http://127.0.0.1:8000/content/images/payment/default/53.jpg",
+                        "width": null,
+                        "height": 20
+                    },
+                    {
+                        "type": null,
+                        "position": null,
+                        "size": "original",
+                        "url": "http://127.0.0.1:8000/content/images/payment/original/53.jpg",
+                        "width": null,
+                        "height": null
+                    }
+                ],
+                "transports": [
+                    {
+                        "uuid": "2cc1d47a-6832-43d2-b9cc-738824b3613b",
+                        "name": "PPL"
+                    },
+                    {
+                        "uuid": "adecf603-f491-4ece-b049-8d0d86a1e48c",
+                        "name": "Personal collection"
+                    }
+                ]
+            }
+        }
+    }
+
 ## Login [/graphql]
 
 ### POST [POST]
 
-Run a GraphQl query.
+Login user and return access and refresh tokens
 
 - Request (application/json)
 
@@ -1129,4 +1293,379 @@ Run a GraphQl query.
                 "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMCIsImF1ZCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwiaWF0IjoxNTg2NDM2NTg3LCJleHAiOjE1ODc2NDYxODcsInV1aWQiOiI0ZDAwNTEyZi1lNDkxLTRmMzEtYjBjYi04ZTViOGU0ODQ5ZDEiLCJzZWNyZXRDaGFpbiI6ImIyMGZkMTNkODIyNTVhNzdmYzJjYWM4OTA1YzU1MWQxZjNjYjc3ODkifQ._mBpd4yQZ1bF4aC6YY3C1BDI1mrH2hV_w0Yh9mKu_i0"
             }
         }
+    }
+
+## Refresh tokens [/graphql]
+
+### POST [POST]
+
+Refreshes access and refresh tokens
+
+- Request (application/json)
+
+    mutation {
+        RefreshTokens(input: {
+            refreshToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMCIsImF1ZCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwiaWF0IjoxNTg2NDM2NTg3LCJleHAiOjE1ODc2NDYxODcsInV1aWQiOiI0ZDAwNTEyZi1lNDkxLTRmMzEtYjBjYi04ZTViOGU0ODQ5ZDEiLCJzZWNyZXRDaGFpbiI6ImIyMGZkMTNkODIyNTVhNzdmYzJjYWM4OTA1YzU1MWQxZjNjYjc3ODkifQ._mBpd4yQZ1bF4aC6YY3C1BDI1mrH2hV_w0Yh9mKu_i0"
+        }) {
+            accessToken
+            refreshToken
+        }
+    }
+
+- Response 200 (application/json; charset=utf-8)
+
+    {
+        "data": {
+            "RefreshTokens": {
+                "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMCIsImF1ZCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwiaWF0IjoxNTg2ODU1NzcyLCJleHAiOjE1ODY4NTkzNzIsInV1aWQiOiI0ZDAwNTEyZi1lNDkxLTRmMzEtYjBjYi04ZTViOGU0ODQ5ZDEiLCJlbWFpbCI6Im5vLXJlcGx5QHNob3BzeXMuY29tIiwiZnVsbE5hbWUiOiJTaG9wc3lzIiwicm9sZXMiOlsiUk9MRV9MT0dHRURfQ1VTVE9NRVIiXX0.vrCl5MDKGfrigYBDDq2b9gGKyTKPDVVreBmGrWIZnYZ6LrYBgiLlvhilcmeXI1OSD3ZWnu2QC1_SDOR3971FoM1Pveo9q0H_7bMF7ubIBUXAp8BThk5sh0GnDqMJVdg84zcTbwQY4-3OVfNoBhqRdBkm-OxaG5t5etOHRa1W0QA0NAm_I48yCn70qGmIM-aHXVTQJq_UGKsh1pRjBDse5Y1H0yFSb65VjWkV3O3FThEnDgJnU2jL4J5nIDUX6qfd1ejU0HatE-CB1f9P4HDVTbuqS5Xc1MbHCVfHxqmrut8FfZ--CrPL_dC0i14a7moxJb-tyh82npThFy7LBkw1Ww",
+                "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMCIsImF1ZCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwiaWF0IjoxNTg2ODU1NzcyLCJleHAiOjE1ODgwNjUzNzIsInV1aWQiOiI0ZDAwNTEyZi1lNDkxLTRmMzEtYjBjYi04ZTViOGU0ODQ5ZDEiLCJzZWNyZXRDaGFpbiI6ImMxZjRjMzAzZTExZTg2MTM2NGIxMTIwY2I0ODBiZjFjMjVmNDU3ZGEifQ.KSsGeI0LFeeJ94t-wU0sWO9_AFmj3djr9bLRi_9gxJ7zy6UxIzKSqDoGzg9LfxbYAofb9MEYQ8ZmCOURhoTBVyTOIMPlFvhFbD_tEQUBakE4Rz3tZFOfszuGQ_bDp6qIG50O-xCFdu3SyupSIR4nJ6fjPG_5j6SZH0ETw1iPqwHyH5_sz7USBHf74FtcuVGNXYIqvvWbVJ6n0Fi-kEI2RSvdkot_6bsS28Zi5zyoovMHThPCMU4DBBmqiY0cSqtEdPdFoN_ALdBGW3yJu7gM9oPaCmqfqapVuywIn5i17cocmN2NmHSTzR0DmTFMtOrCVipM7tlHVImq8dlovGSffQ"
+            }
+        }
+    }
+
+## Create order [/graphql]
+
+### POST [POST]
+
+Creates complete order with products and addresses
+
+- Request (application/json)
+
+    mutation {
+        CreateOrder(
+            input: {
+                firstName: "firstName"
+                lastName: "lastName"
+                email: "user@example.com"
+                telephone: "+53 123456789"
+                onCompanyBehalf: true
+                companyName: "Airlocks s.r.o."
+                companyNumber: "1234"
+                companyTaxNumber: "EU4321"
+                street: "123 Fake Street"
+                city: "Springfield"
+                postcode: "12345"
+                country: "CZ"
+                note:"Thank You"
+                payment: {
+                    uuid: "840f9191-c6f2-4ab0-9788-9c038f211ca6"
+                    price: {
+                        priceWithVat: "2"
+                        priceWithoutVat: "2"
+                        vatAmount: "0"
+                    }
+                }
+                transport: {
+                    uuid: "edbafa26-9306-46ed-b1e8-d1570f072832"
+                    price: {
+                        priceWithVat: "4.84"
+                        priceWithoutVat: "4"
+                        vatAmount: "0.84"
+                    }
+                }
+                differentDeliveryAddress: true
+                deliveryFirstName: "deliveryFirstName"
+                deliveryLastName: "deliveryLastName"
+                deliveryStreet: "deliveryStreet"
+                deliveryCity: "deliveryCity"
+                deliveryCountry: "SK"
+                deliveryPostcode: "13453"
+                products: [
+                    {
+                        uuid: "04a561ae-d08c-47f9-aed0-e52c469038aa"
+                        unitPrice: {
+                            priceWithVat: "139.96"
+                            priceWithoutVat: "115.67"
+                            vatAmount: "24.29"
+                        }
+                        quantity: 10
+                    },
+                ]
+            }
+        ) {
+            transport {
+                name
+            }
+            payment {
+                name
+            }
+            status
+            totalPrice {
+                priceWithVat
+                priceWithoutVat
+                vatAmount
+            }
+            items {
+                name
+                unitPrice {
+                    priceWithVat
+                    priceWithoutVat
+                    vatAmount
+                }
+                totalPrice {
+                    priceWithVat
+                    priceWithoutVat
+                    vatAmount
+                }
+                quantity
+                vatRate
+                unit
+            }
+            firstName
+            lastName
+            email
+            telephone
+            companyName
+            companyNumber
+            companyTaxNumber
+            street
+            city
+            postcode
+            country
+            differentDeliveryAddress
+            deliveryFirstName
+            deliveryLastName
+            deliveryCompanyName
+            deliveryTelephone
+            deliveryStreet
+            deliveryCity
+            deliveryPostcode
+            deliveryCountry
+            note
+        }
+    }
+
+- Response 200 (application/json; charset=utf-8)
+
+    {
+        "data": {
+            "CreateOrder": {
+                "transport": {
+                    "name": "Czech post"
+                },
+                "payment": {
+                    "name": "Cash on delivery"
+                },
+                "status": "New",
+                "totalPrice": {
+                    "priceWithVat": "1406.44",
+                    "priceWithoutVat": "1162.69",
+                    "vatAmount": "243.75"
+                },
+                "items": [
+                    {
+                        "name": "22\" Sencor SLE 22F46DM4 HELLO KITTY",
+                        "unitPrice": {
+                            "priceWithVat": "139.96",
+                            "priceWithoutVat": "115.67",
+                            "vatAmount": "24.29"
+                        },
+                        "totalPrice": {
+                            "priceWithVat": "1399.60",
+                            "priceWithoutVat": "1156.69",
+                            "vatAmount": "242.91"
+                        },
+                        "quantity": 10,
+                        "vatRate": "21.0000",
+                        "unit": "pcs"
+                    },
+                    {
+                        "name": "Cash on delivery",
+                        "unitPrice": {
+                            "priceWithVat": "2.00",
+                            "priceWithoutVat": "2.00",
+                            "vatAmount": "0.00"
+                        },
+                        "totalPrice": {
+                            "priceWithVat": "2.00",
+                            "priceWithoutVat": "2.00",
+                            "vatAmount": "0.00"
+                        },
+                        "quantity": 1,
+                        "vatRate": "0.0000",
+                        "unit": null
+                    },
+                    {
+                        "name": "Czech post",
+                        "unitPrice": {
+                            "priceWithVat": "4.84",
+                            "priceWithoutVat": "4.00",
+                            "vatAmount": "0.84"
+                        },
+                        "totalPrice": {
+                            "priceWithVat": "4.84",
+                            "priceWithoutVat": "4.00",
+                            "vatAmount": "0.84"
+                        },
+                        "quantity": 1,
+                        "vatRate": "21.0000",
+                        "unit": null
+                    }
+                ],
+                "firstName": "firstName",
+                "lastName": "lastName",
+                "email": "user@example.com",
+                "telephone": "+53 123456789",
+                "companyName": "Airlocks s.r.o.",
+                "companyNumber": "1234",
+                "companyTaxNumber": "EU4321",
+                "street": "123 Fake Street",
+                "city": "Springfield",
+                "postcode": "12345",
+                "country": "CZ",
+                "differentDeliveryAddress": true,
+                "deliveryFirstName": "deliveryFirstName",
+                "deliveryLastName": "deliveryLastName",
+                "deliveryCompanyName": null,
+                "deliveryTelephone": null,
+                "deliveryStreet": "deliveryStreet",
+                "deliveryCity": "deliveryCity",
+                "deliveryPostcode": "13453",
+                "deliveryCountry": "SK",
+                "note": "Thank You"
+            }
+        }
+    }
+
+## Create order without supplying required fields
+
+### POST [POST]
+
+Returns validation error
+
+- Request (application/json)
+    mutation {
+        CreateOrder(
+            input: {
+                firstName: "firstName"
+                lastName: "lastName"
+                email: "user@example.com"
+                telephone: "+53 123456789"
+                onCompanyBehalf: true
+                street: "123 Fake Street"
+                city: "Springfield"
+                postcode: "12345"
+                country: "CZ"
+                note:"Thank You"
+                payment: {
+                    uuid: "840f9191-c6f2-4ab0-9788-9c038f211ca6"
+                    price: {
+                        priceWithVat: "2"
+                        priceWithoutVat: "2"
+                        vatAmount: "0"
+                    }
+                }
+                transport: {
+                    uuid: "edbafa26-9306-46ed-b1e8-d1570f072832"
+                    price: {
+                        priceWithVat: "4.84"
+                        priceWithoutVat: "4"
+                        vatAmount: "0.84"
+                    }
+                }
+                differentDeliveryAddress: true
+                deliveryFirstName: "deliveryFirstName"
+                deliveryLastName: "deliveryLastName"
+                deliveryStreet: "deliveryStreet"
+                deliveryCity: "deliveryCity"
+                deliveryCountry: "SK"
+                deliveryPostcode: "13453"
+                products: [
+                    {
+                        uuid: "04a561ae-d08c-47f9-aed0-e52c469038aa"
+                        unitPrice: {
+                            priceWithVat: "139.96"
+                            priceWithoutVat: "115.67"
+                            vatAmount: "24.29"
+                        }
+                        quantity: 10
+                    },
+                ]
+            }
+        ) {
+            transport {
+                name
+            }
+            payment {
+                name
+            }
+            status
+            totalPrice {
+                priceWithVat
+                priceWithoutVat
+                vatAmount
+            }
+            items {
+                name
+                unitPrice {
+                    priceWithVat
+                    priceWithoutVat
+                    vatAmount
+                }
+                totalPrice {
+                    priceWithVat
+                    priceWithoutVat
+                    vatAmount
+                }
+                quantity
+                vatRate
+                unit
+            }
+            firstName
+            lastName
+            email
+            telephone
+            companyName
+            companyNumber
+            companyTaxNumber
+            street
+            city
+            postcode
+            country
+            differentDeliveryAddress
+            deliveryFirstName
+            deliveryLastName
+            deliveryCompanyName
+            deliveryTelephone
+            deliveryStreet
+            deliveryCity
+            deliveryPostcode
+            deliveryCountry
+            note
+        }
+    }
+
+- Response 200 (application/json; charset=utf-8)
+    {
+        "errors": [
+            {
+                "message": "validation",
+                "extensions": {
+                    "category": "arguments_validation_error",
+                    "validation": {
+                        "input.companyName": [
+                            {
+                                "message": "Please enter company name",
+                                "code": "c1051bb4-d103-4f74-8988-acbcafc7fdc3"
+                            }
+                        ],
+                        "input.companyNumber": [
+                            {
+                                "message": "Please enter identification number",
+                                "code": "c1051bb4-d103-4f74-8988-acbcafc7fdc3"
+                            }
+                        ]
+                    }
+                },
+                "locations": [
+                    {
+                        "line": 2,
+                        "column": 9
+                    }
+                ],
+                "path": [
+                    "CreateOrder"
+                ]
+            }
+        ]
     }
